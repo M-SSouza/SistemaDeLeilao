@@ -14,6 +14,7 @@ namespace SistemaDeLeilao.Data
         }
         public DbSet<Pessoas> Pessoas { get; set; }
         public DbSet<Produtos> Produtos { get; set; }
+        public DbSet<SistemaDeLeilao.Models.Lances> Lances { get; set; }
 
     }
 }

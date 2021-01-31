@@ -1,0 +1,44 @@
+﻿@model SistemaDeLeilao.Models.Lances
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Lances</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="LancesID" />
+            <div class="form-group">
+                <label asp-for="PessoasID" class="control-label"></label>
+                <input asp-for="PessoasID" class="form-control" />
+                <span asp-validation-for="PessoasID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProdutosID" class="control-label"></label>
+                <input asp-for="ProdutosID" class="form-control" />
+                <span asp-validation-for="ProdutosID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Valor" class="control-label"></label>
+                <input asp-for="Valor" class="form-control" />
+                <span asp-validation-for="Valor" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

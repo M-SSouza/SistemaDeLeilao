@@ -1,0 +1,60 @@
+﻿@model SistemaDeLeilao.Models.Lances
+
+@{
+    ViewData["Title"] = "Create";
+    <script src="~/lib/jquery-maskmoney/jquery.maskMoney.min.js"></script>
+}
+
+<h1>Create</h1>
+
+<h4>Lances</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="PessoasID" class="control-label"></label>
+                <select asp-for="PessoasID" class="form-select"
+                        asp-items="@ViewBag.Pessoas"></select>
+                <span asp-validation-for="PessoasID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProdutosID" class="control-label"></label>
+                <select asp-for="ProdutosID" class="form-select"
+                        asp-items="@ViewBag.Produtos"></select>
+                <span asp-validation-for="ProdutosID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="form-group">
+                    <label asp-for="Valor" class="control-label"></label>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">R$:</span>
+                        </div>
+                        <input class="form-control" asp-for="Valor" id="money">
+                    </div>
+                    <span asp-validation-for="Valor" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#money").maskMoney({
+                allowNegative: false,
+                thousands: '.',
+                decimal: ','
+            });
+        });
+    </script>
+}
