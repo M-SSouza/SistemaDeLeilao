@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Usuario\\Desktop\\ProjetoItB\\SistemaDeLeilao\\SistemaDeLeilao\\SistemaDeLeilao.csproj": {}
+    "C:\\Users\\viafr\\Documents\\MSS\\SistemaDeLeilao\\SistemaDeLeilao\\SistemaDeLeilao.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Usuario\\Desktop\\ProjetoItB\\SistemaDeLeilao\\SistemaDeLeilao\\SistemaDeLeilao.csproj": {
+    "C:\\Users\\viafr\\Documents\\MSS\\SistemaDeLeilao\\SistemaDeLeilao\\SistemaDeLeilao.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Usuario\\Desktop\\ProjetoItB\\SistemaDeLeilao\\SistemaDeLeilao\\SistemaDeLeilao.csproj",
+        "projectUniqueName": "C:\\Users\\viafr\\Documents\\MSS\\SistemaDeLeilao\\SistemaDeLeilao\\SistemaDeLeilao.csproj",
         "projectName": "SistemaDeLeilao",
-        "projectPath": "C:\\Users\\Usuario\\Desktop\\ProjetoItB\\SistemaDeLeilao\\SistemaDeLeilao\\SistemaDeLeilao.csproj",
-        "packagesPath": "C:\\Users\\Usuario\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Usuario\\Desktop\\ProjetoItB\\SistemaDeLeilao\\SistemaDeLeilao\\obj\\",
+        "projectPath": "C:\\Users\\viafr\\Documents\\MSS\\SistemaDeLeilao\\SistemaDeLeilao\\SistemaDeLeilao.csproj",
+        "packagesPath": "C:\\Users\\viafr\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\viafr\\Documents\\MSS\\SistemaDeLeilao\\SistemaDeLeilao\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Usuario\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\viafr\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -39,6 +39,44 @@
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[5.0.2, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[5.0.2, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[5.0.2, )"
+            },
+            "Microsoft.EntityFrameworkCore.Relational": {
+              "target": "Package",
+              "version": "[5.0.2, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[5.0.2, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[5.0.2, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[5.0.2, )"
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[5.0.1, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -57,7 +95,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.102\\RuntimeIdentifierGraph.json"
         }
       }
     }
