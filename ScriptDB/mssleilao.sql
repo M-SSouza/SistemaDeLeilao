@@ -22,7 +22,7 @@ GO
 CREATE TABLE [dbo].[Pessoas](
 	[PessoasID] [int] IDENTITY(1,1) NOT NULL,
 	[Nome] [nvarchar](50) NOT NULL,
-	[Idade] [decimal] NOT NULL,
+	[Idade] [int] NOT NULL,
  CONSTRAINT [PK_dbo.Pessoas] PRIMARY KEY CLUSTERED 
 (
 	[PessoasID] ASC

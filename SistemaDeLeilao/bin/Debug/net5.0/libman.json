@@ -1,5 +1,21 @@
 {
   "version": "1.0",
   "defaultProvider": "cdnjs",
-  "libraries": []
+  "libraries": [
+    {
+      "library": "jquery.maskedinput@1.4.1",
+      "destination": "wwwroot/lib/jquery.maskedinput/",
+      "files": [
+        "jquery.maskedinput.min.js"
+      ]
+    },
+    {
+      "library": "jquery-maskmoney@3.0.2",
+      "destination": "wwwroot/lib/jquery-maskmoney/"
+    },
+    {
+      "library": "jquery.inputmask@5.0.5",
+      "destination": "wwwroot/lib/jquery.inputmask/"
+    }
+  ]
 }

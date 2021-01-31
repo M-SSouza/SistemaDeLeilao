@@ -22,8 +22,6 @@ namespace SistemaDeLeilao.Controllers
         // GET: Pessoas
         public async Task<IActionResult> Index()
         {
-            var i = db.Pessoas.ToList();
-
             return View(await db.Pessoas.ToListAsync());
         }
 
