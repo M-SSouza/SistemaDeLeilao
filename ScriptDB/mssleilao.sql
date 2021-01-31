@@ -9,7 +9,7 @@ GO
 CREATE TABLE [dbo].[Produtos](
 	[ProdutosID] [int] IDENTITY(1,1) NOT NULL,
 	[Nome] [nvarchar](50) NOT NULL,
-	[Valor] [decimal] NOT NULL,
+	[Valor] [decimal](18,2) NOT NULL,
  CONSTRAINT [PK_dbo.Produtos] PRIMARY KEY CLUSTERED 
 (
 	[ProdutosID] ASC
@@ -36,7 +36,7 @@ CREATE TABLE [dbo].[Lances](
 	[LancesID] [int] IDENTITY(1,1) NOT NULL,
 	[PessoasID] [int] NOT NULL,
 	[ProdutosID] [int] NOT NULL,
-	[Valor] [decimal] NOT NULL,
+	[Valor] [decimal](18,2) NOT NULL,
  CONSTRAINT [PK_dbo.Lances] PRIMARY KEY CLUSTERED 
 (
 	[LancesID] ASC

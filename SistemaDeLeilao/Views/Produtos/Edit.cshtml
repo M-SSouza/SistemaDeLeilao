@@ -2,11 +2,12 @@
 
 @{
     ViewData["Title"] = "Edit";
+    <script src="~/lib/jquery-maskmoney/jquery.maskMoney.min.js"></script>
 }
 
-<h1>Edit</h1>
+<h1>Editar de edição</h1>
 
-<h4>Produtos</h4>
+<h4>@Model.Nome</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -20,7 +21,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="Valor" class="control-label"></label>
-                <input asp-for="Valor" class="form-control" />
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">R$:</span>
+                    </div>
+                    <input class="form-control" asp-for="Valor" id="money">
+                </div>
                 <span asp-validation-for="Valor" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -33,7 +39,14 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#money").maskMoney({
+                allowNegative: false,
+                thousands: '.',
+                decimal: ','
+            });
+        });
+    </script>
 }

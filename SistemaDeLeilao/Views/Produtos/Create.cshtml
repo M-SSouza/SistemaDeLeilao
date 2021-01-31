@@ -19,9 +19,16 @@
                 <span asp-validation-for="Nome" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Valor" class="control-label"></label>
-                <input asp-for="Valor" id="money" class="form-control" />
-                <span asp-validation-for="Valor" class="text-danger"></span>
+                <div class="form-group">
+                    <label asp-for="Valor" class="control-label"></label>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">R$:</span>
+                        </div>
+                        <input class="form-control" asp-for="Valor" id="money">
+                    </div>
+                    <span asp-validation-for="Valor" class="text-danger"></span>
+                </div>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
@@ -33,23 +40,14 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
-
 @section Scripts {
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $("#money").maskMoney({
-                allowNegative: false,
-                thousands: '.',
-                decimal: ','
-            });
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#money").maskMoney({
+            allowNegative: false,
+            thousands: '.',
+            decimal: ','
         });
-
-        $('#create').submit(function () {
-            document.getElementById("money").value = document.getElementById("money").value.replace(".", "").replace(",", ".");
-            console.log(document.getElementById("money").value);
-            return true; // return false to cancel form action
-        });
-    </script>
-
-
+    });
+</script>
 }
