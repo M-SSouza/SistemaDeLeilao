@@ -1,4 +1,4 @@
-CREATE DATABASE MSSLeilao
+﻿CREATE DATABASE MSSLeilao
 GO
 
 USE MSSLeilao; 
@@ -45,15 +45,34 @@ CREATE TABLE [dbo].[Lances](
 GO
 
 ALTER TABLE [dbo].[Lances]  WITH CHECK ADD CONSTRAINT [FK_dbo.Lances_dbo.Pessoas_PessoasID] FOREIGN KEY([PessoasID])
-REFERENCES [dbo].[Pessoas] ([PessoasID])
+REFERENCES [dbo].[Pessoas] ([PessoasID]) ON DELETE CASCADE
 GO
 
 ALTER TABLE [dbo].[Lances] CHECK CONSTRAINT [FK_dbo.Lances_dbo.Pessoas_PessoasID]
 GO
 
 ALTER TABLE [dbo].[Lances]  WITH CHECK ADD CONSTRAINT [FK_dbo.Lances_dbo.Produtos_ProdutosID] FOREIGN KEY([ProdutosID])
-REFERENCES [dbo].[Produtos] ([ProdutosID])
+REFERENCES [dbo].[Produtos] ([ProdutosID]) ON DELETE CASCADE
 GO
 
 ALTER TABLE [dbo].[Lances] CHECK CONSTRAINT [FK_dbo.Lances_dbo.Produtos_ProdutosID]
 GO
+
+
+/*Adiconar alguns produtos...pessoas...lances...para simulação da consulta*/
+INSERT INTO [dbo].[Pessoas] 
+VALUES ('Matheus', 22), ('Carlos', 23), ('Rodrigo', 35);
+GO
+
+INSERT INTO [dbo].[Produtos] 
+VALUES ('Disco', 13.95), ('Celular', 899.99), ('Geladeira', 1200);
+GO
+
+INSERT INTO [dbo].[Lances] 
+VALUES (1, 2, 899.99), (1, 2, 919.99), (1, 2, 1099.99), (1, 2, 1199.99);
+GO
+
+SELECT p.Nome, p.Valor [Valor Inicial], pe.Nome FROM Produtos p
+JOIN Lances l ON l.ProdutosID = p.ProdutosID
+JOIN Pessoas pe ON pe.PessoasID = l.PessoasID
+WHERE p.Nome LIKE '%cel%'

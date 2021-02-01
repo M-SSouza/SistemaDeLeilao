@@ -5,9 +5,9 @@
     <script src="~/lib/jquery-maskmoney/jquery.maskMoney.min.js"></script>
 }
 
-<h1>Editar de edição</h1>
+<h1>Editar produto</h1>
 
-<h4>@Model.Nome</h4>
+<h4>Produto: @Model.Nome</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -30,23 +30,12 @@
                 <span asp-validation-for="Valor" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Salvar" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-warning text-white">Voltar</a>
             </div>
         </form>
     </div>
 </div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 @section Scripts {
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $("#money").maskMoney({
-                allowNegative: false,
-                thousands: '.',
-                decimal: ','
-            });
-        });
-    </script>
+    <script type="text/javascript" src="~/js/complemento.js"></script>
 }

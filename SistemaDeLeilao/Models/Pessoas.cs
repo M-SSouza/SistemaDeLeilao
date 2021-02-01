@@ -18,6 +18,6 @@ namespace SistemaDeLeilao.Models
         [Required(ErrorMessage = "Nos diga sua idade, por favor.")]
         [Range(minimum: 18, maximum: 120, ErrorMessage = "Você precisa ter de 18 anos até 120 anos..")]
         [RegularExpression("^[0-9]*[1-9][0-9]*$", ErrorMessage = "Apenas números inteiro.")]
-        public int Idade { get; set; }
+        public int? Idade { get; set; }
     }
 }

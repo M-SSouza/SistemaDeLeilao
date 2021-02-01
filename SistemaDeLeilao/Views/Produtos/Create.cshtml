@@ -5,9 +5,9 @@
     <script src="~/lib/jquery-maskmoney/jquery.maskMoney.min.js"></script>
 }
 
-<h1>Ficha cadastral</h1>
+<h1>Ficha do produto</h1>
 
-<h4>Produtos</h4>
+<h4>Cadastrar produto</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -31,23 +31,12 @@
                 </div>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Salvar" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-warning text-white">Voltar</a>
             </div>
         </form>
     </div>
 </div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 @section Scripts {
-<script type="text/javascript">
-    $(document).ready(function () {
-        $("#money").maskMoney({
-            allowNegative: false,
-            thousands: '.',
-            decimal: ','
-        });
-    });
-</script>
+<script type="text/javascript" src="~/js/complemento.js"></script>
 }

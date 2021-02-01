@@ -2,6 +2,9 @@
 
 @{
     ViewData["Title"] = "Index";
+    <script src="~/lib/datatables/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" href="~/lib/datatables/css/jquery.dataTables.css" />
+    <script src="https://kit.fontawesome.com/8082e987a4.js" crossorigin="anonymous"></script>
 }
 
 <h1>Listagem de lances</h1>
@@ -10,7 +13,7 @@
     <div class="col text-center"><a type="button" asp-controller="Lances" asp-action="Create" class="btn btn-primary">Realizar novo lance</a></div>
 </div>
 
-<table class="table">
+<table class="display" id="tabela" style="width:100%">
     <thead>
         <tr>
             <th>
@@ -26,23 +29,30 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.PessoasID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProdutosID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Valor)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.LancesID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.LancesID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.LancesID">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Pessoas.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Produtos.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Valor)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.LancesID"><i class="fas fa-edit"></i></a>
+                    <a asp-action="Delete" asp-route-id="@item.LancesID"><i class="fas fa-trash"></i></a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#tabela').DataTable({ "order": [[2, "desc"]] });
+        });
+    </script>
+}

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -22,34 +23,42 @@ namespace SistemaDeLeilao.Controllers
         // GET: Lances
         public async Task<IActionResult> Index()
         {
-            return View(await db.Lances.ToListAsync());
+            return View(await db.Lances.Include(x => x.Produtos).Include(x => x.Pessoas).ToListAsync());
         }
 
         // GET: Lances/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            ViewBag.Pessoas = db.Pessoas.Select(p => new SelectListItem()
-            { Text = p.Nome, Value = p.PessoasID.ToString() }).ToList();
+            ViewBag.Pessoas = await db.Pessoas.Select(p => new SelectListItem()
+            { Text = p.Nome, Value = p.PessoasID.ToString() }).ToListAsync();
 
-            ViewBag.Produtos = db.Produtos.Select(p => new SelectListItem()
-            { Text = p.Nome, Value = p.ProdutosID.ToString() }).ToList();
+            ViewBag.Produtos = await db.Produtos.Select(p => new SelectListItem()
+            { Text = p.Nome, Value = p.ProdutosID.ToString() }).ToListAsync();
 
             return View();
         }
 
         // POST: Lances/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("LancesID,PessoasID,ProdutosID,Valor")] Lances lances)
+        public async Task<IActionResult> Create(Lances lances)
         {
 
             //Procuro algum lance pertencente a esse produto que seja maior ao valor informado.
-            bool valorMax = db.Lances.Where(x => x.ProdutosID == lances.ProdutosID).Any(x => x.Valor > lances.Valor); 
-            if (valorMax)
+            decimal? valorMax = db.Lances.Where(x => x.ProdutosID == lances.ProdutosID && x.Valor >= lances.Valor).Select(x => x.Valor).FirstOrDefault();
+
+            
+            //Caso exista um lance maior que essa tentativa ou o valor for abaixo do valor de lance inicial retornar um erro.
+            if (valorMax != null)
             {
-                ModelState.AddModelError("Valor", "O valor precisa ser maior ao último lance já feito.");
+                ModelState.AddModelError("Valor", $"O valor precisa ser maior ao último lance já feito [{string.Format("{0:C}", valorMax)}].");
+            }
+            else
+            {
+                //Procuro o valor inicial do produto (quando não houver lance anterior).
+                decimal? valorInicial = db.Produtos.FindAsync(lances.ProdutosID).Result.Valor;
+                if (lances.Valor < valorInicial)
+                ModelState.AddModelError("Valor", $"O valor precisa ser igual ou maior que o valor inicial [{string.Format("{0:C}", valorInicial)}].");
             }
 
             if (ModelState.IsValid)
@@ -59,11 +68,11 @@ namespace SistemaDeLeilao.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            ViewBag.Pessoas = db.Pessoas.Select(p => new SelectListItem()
-            { Text = p.Nome, Value = p.PessoasID.ToString() }).ToList();
+            ViewBag.Pessoas = await db.Pessoas.Select(p => new SelectListItem()
+            { Text = p.Nome, Value = p.PessoasID.ToString() }).ToListAsync();
 
-            ViewBag.Produtos = db.Produtos.Select(p => new SelectListItem()
-            { Text = p.Nome, Value = p.ProdutosID.ToString() }).ToList();
+            ViewBag.Produtos = await db.Produtos.Select(p => new SelectListItem()
+            { Text = p.Nome, Value = p.ProdutosID.ToString() }).ToListAsync();
             return View(lances);
         }
 
@@ -75,17 +84,22 @@ namespace SistemaDeLeilao.Controllers
                 return NotFound();
             }
 
-            var lances = await db.Lances.FindAsync(id);
+            var lances = await db.Lances.Include(x => x.Pessoas).Include(x => x.Produtos).FirstOrDefaultAsync(x => x.LancesID == id);
             if (lances == null)
             {
                 return NotFound();
             }
+
+            ViewBag.Pessoas = await db.Pessoas.Select(p => new SelectListItem()
+            { Text = p.Nome, Value = p.PessoasID.ToString() }).ToListAsync();
+
+            ViewBag.Produtos = await db.Produtos.Select(p => new SelectListItem()
+            { Text = p.Nome, Value = p.ProdutosID.ToString() }).ToListAsync();
+
             return View(lances);
         }
 
         // POST: Lances/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("LancesID,PessoasID,ProdutosID,Valor")] Lances lances)
@@ -93,6 +107,22 @@ namespace SistemaDeLeilao.Controllers
             if (id != lances.LancesID)
             {
                 return NotFound();
+            }
+
+            decimal? valorMax = db.Lances.Where(x => x.ProdutosID == lances.ProdutosID && x.Valor >= lances.Valor).Select(x => x.Valor).FirstOrDefault();
+
+
+            //Caso exista um lance maior que essa tentativa ou o valor for abaixo do valor de lance inicial retornar um erro.
+            if (valorMax != null)
+            {
+                ModelState.AddModelError("Valor", $"O valor precisa ser maior ao último lance já feito [{string.Format("{0:C}", valorMax)}].");
+            }
+            else
+            {
+                //Procuro o valor inicial do produto (quando não houver lance anterior).
+                decimal? valorInicial = db.Produtos.FindAsync(lances.ProdutosID).Result.Valor;
+                if (lances.Valor < valorInicial)
+                    ModelState.AddModelError("Valor", $"O valor precisa ser igual ou maior que o valor inicial [{string.Format("{0:C}", valorInicial)}].");
             }
 
             if (ModelState.IsValid)
@@ -115,6 +145,13 @@ namespace SistemaDeLeilao.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+
+            ViewBag.Pessoas = await db.Pessoas.Select(p => new SelectListItem()
+            { Text = p.Nome, Value = p.PessoasID.ToString() }).ToListAsync();
+
+            ViewBag.Produtos = await db.Produtos.Select(p => new SelectListItem()
+            { Text = p.Nome, Value = p.ProdutosID.ToString() }).ToListAsync();
+
             return View(lances);
         }
 
@@ -126,7 +163,7 @@ namespace SistemaDeLeilao.Controllers
                 return NotFound();
             }
 
-            var lances = await db.Lances
+            var lances = await db.Lances.Include(x => x.Produtos).Include(x => x.Pessoas)
                 .FirstOrDefaultAsync(m => m.LancesID == id);
             if (lances == null)
             {
@@ -150,6 +187,12 @@ namespace SistemaDeLeilao.Controllers
         private bool LancesExists(int id)
         {
             return db.Lances.Any(e => e.LancesID == id);
+        }
+
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }

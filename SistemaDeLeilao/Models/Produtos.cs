@@ -17,6 +17,7 @@ namespace SistemaDeLeilao.Models
 
         [Required(ErrorMessage = "Não esqueça do valor.")]
         [Range(minimum:2.00, maximum: 50000.00, ErrorMessage = "Defina um valor de R$:2,00 até R$: 50.000,00. ")]
-        public decimal Valor { get; set; }
+        [DisplayFormat(DataFormatString = "{0:C}")]
+        public decimal? Valor { get; set; }
     }
 }

@@ -2,14 +2,17 @@
 
 @{
     ViewData["Title"] = "Index";
+    <script src="~/lib/datatables/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" href="~/lib/datatables/css/jquery.dataTables.css" />
+    <script src="https://kit.fontawesome.com/8082e987a4.js" crossorigin="anonymous"></script>
 }
 
-<h1>Index</h1>
+<h1>Listagem de produtos</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
+<div class="row">
+    <div class="col text-center"><a type="button" asp-controller="Produtos" asp-action="Create" class="btn btn-primary">Cadastrar novo produto</a></div>
+</div>
+<table class="display" id="tabela">
     <thead>
         <tr>
             <th>
@@ -22,20 +25,27 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nome)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Valor)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ProdutosID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ProdutosID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ProdutosID">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Valor)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.ProdutosID"><i class="fas fa-edit"></i></a>
+                    <a asp-action="Delete" asp-route-id="@item.ProdutosID"><i class="fas fa-trash"></i></a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#tabela').DataTable({ "order": [[2, "desc"]] });
+        });
+    </script>
+}
