@@ -7,6 +7,7 @@ INSTALAÇÃO LOCAL
 • Dentro da pasta "ScriptDB" encontra-se o arquivo "mssleilao.sql", ele é um script que cria o banco chamado MSSLeilao, assim como as tabelas Pessoas, Produtos e Lances. Esse arquivo também adiciona alguns dados pré cadastrados e também possui a consulta simulada dos lances de um produto.
 
 • Para rodar o projeto, deve-se rodar o arquivo "mssleilao.sql" gerando o banco e após isso trocar a string de conexão com o banco no arquivo "appsettings.json" no valor da chave "DefaultConnection".
+![appsettings](https://user-images.githubusercontent.com/61476990/106409995-a1ba3c00-6420-11eb-913c-2577f883258e.jpg)
 
 BANCO DE DADOS
 
