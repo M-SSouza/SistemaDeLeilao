@@ -56,7 +56,8 @@ namespace SistemaDeLeilao.Controllers
             else
             {
                 //Procuro o valor inicial do produto (quando não houver lance anterior).
-                decimal? valorInicial = db.Produtos.FindAsync(lances.ProdutosID).Result.Valor;
+                var produto = await db.Produtos.FindAsync(lances.ProdutosID);
+                decimal? valorInicial = (produto != null) ? produto.Valor : null;
                 if (lances.Valor < valorInicial)
                 ModelState.AddModelError("Valor", $"O valor precisa ser igual ou maior que o valor inicial [{string.Format("{0:C}", valorInicial)}].");
             }
