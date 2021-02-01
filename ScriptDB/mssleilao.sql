@@ -72,7 +72,7 @@ INSERT INTO [dbo].[Lances]
 VALUES (1, 2, 899.99), (1, 2, 919.99), (1, 2, 1099.99), (1, 2, 1199.99);
 GO
 
-SELECT p.Nome, p.Valor [Valor Inicial], pe.Nome FROM Produtos p
+SELECT p.Nome, l.Valor [Valor Inicial], pe.Nome FROM Produtos p
 JOIN Lances l ON l.ProdutosID = p.ProdutosID
 JOIN Pessoas pe ON pe.PessoasID = l.PessoasID
 WHERE p.Nome LIKE '%cel%'
